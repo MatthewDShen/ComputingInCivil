@@ -2,7 +2,7 @@ import pint
 units = pint.UnitRegistry()
 
 def helloWorld():
-    pring("Hello World")
+    print("Hello World")
 
 def pintTest():
     a = 10 * units.inches
