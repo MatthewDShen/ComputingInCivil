@@ -31,6 +31,10 @@ def dir_cos(xy1,xy2):
     len = calc_length(xy1,xy2)
     return (xy2[0] - xy1[0]/len, xy2[1] - xy1[1]/len)
 
+lx1, ly1 = dir_cos((x2,y2), (x3, y3))
+lx2, ly2 = dir_cos((x2, y2), (x1, y1))
+
+print(lx1, ly1, lx2, ly2)
 # Member 1 (btw 2 and 3)
 
 # Member 2 (btw 1 and 2)
@@ -38,18 +42,18 @@ def dir_cos(xy1,xy2):
 # print(lx1, lx2, lx3, lx4)
 
 # Stifness Matrix
-def stiff_matrix(xy1, xy2):
-    """Return the stiffness matrix for a member given the """
+# def stiff_matrix(xy1, xy2):
+#     """Return the stiffness matrix for a member given the """
     
-    length = calc_length(xy1, xy2)
-    lx, ly = dir_cos(xy1, xy2)
+#     length = calc_length(xy1, xy2)
+#     lx, ly = dir_cos(xy1, xy2)
 
-    k1 = np.array(
-        [lx1**2, lx1*ly1, -lx1**2, -lx1*ly1],
-        [lx1*ly1, ly1**2, -lx1*ly1, -ly1**2],
-        [-lx1**2 , -lx1*ly1 , lx1**2 , lx1*ly1]
-        [-lx1*ly1, -ly1**2, lx1*ly1, ly1**2]
-    ) / length
+#     k1 = np.array(
+#         [lx1**2, lx1*ly1, -lx1**2, -lx1*ly1],
+#         [lx1*ly1, ly1**2, -lx1*ly1, -ly1**2],
+#         [-lx1**2 , -lx1*ly1 , lx1**2 , lx1*ly1]
+#         [-lx1*ly1, -ly1**2, lx1*ly1, ly1**2]
+#     ) / length
 
 
 
