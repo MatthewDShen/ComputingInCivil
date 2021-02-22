@@ -25,12 +25,11 @@ def countVowles():
 
     s = str(input("Insert your sentence here: "))
 
-    # length = len(s)
     Vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
+
     NumVowles = 0
  
     for i in s:
-        #if i=='a' or i == 'e' or i == 'i' or i == 'o' or i == 'u' or i == 'A' or i == 'E' or i == 'I' or i == 'O' or i == 'U':
         if i in Vowels:
             NumVowles = NumVowles + 1
     
