@@ -1,6 +1,5 @@
 #import libraries
 import numpy as np
-from numpy.lib.shape_base import _kron_dispatcher
 
 #Stiffness Functions
 def calc_length(xy1: tuple, xy2: tuple) -> float:
@@ -132,18 +131,18 @@ def global_stiff_matrix(nodes, members):
     }
     """
 
-    k = np.zeros((2*len(nodes), 2*len(nodes)))
+    # k = np.zeros((2*len(nodes), 2*len(nodes)))
 
-    for member in members:
-        n1, n2 = member
-        all_dof = [i for i in range(1, 2*len(nodes)+1)]
-        member_dof = n1['dof'] + n2['dof']
-        other_dofs = [i for i in all_dof if i not in member_dof]
-        k_i = element_stiff_matrix(n1['coord'], n2['coord'], other_dofs=other_dofs)
+    # for member in members:
+    #     n1, n2 = member
+    #     all_dof = [i for i in range(1, 2*len(nodes)+1)]
+    #     member_dof = n1['dof'] + n2['dof']
+    #     other_dofs = [i for i in all_dof if i not in member_dof]
+    #     k_i = element_stiff_matrix(n1['coord'], n2['coord'], other_dofs=other_dofs)
 
-        k += k_i
+    #     k += k_i
 
-    return k
+    # return k
 
-    for node in nodes:
-        print(node['force'])
+    # for node in nodes:
+    #     print(node['force'])
