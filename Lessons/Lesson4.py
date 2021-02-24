@@ -93,20 +93,6 @@ members = [
 ]
 
 #Calculate the element stiffness matrix for each member
-
-k = np.zeros((10, 10))
-
-for member in members:
-    n1, n2 = member
-    all_dof = [i for i in range(1, 2*len(nodes)+1)]
-    member_dof = n1['dof'] + n2['dof']
-    other_dofs = [i for i in all_dof if i not in member_dof]
-    k_i = element_stiff_matrix(n1['coord'], n2['coord'], other_dofs=other_dofs)
-
-    k = k_i + k
-
-print(k)
-
 def global_stiff_matrix(nodes, members):
     """ It returns the global stiffness matrix given a list of members
     and their nodes, formated as:
@@ -131,18 +117,37 @@ def global_stiff_matrix(nodes, members):
     }
     """
 
-    # k = np.zeros((2*len(nodes), 2*len(nodes)))
+    k = np.zeros((2*len(nodes), 2*len(nodes)))
 
-    # for member in members:
-    #     n1, n2 = member
-    #     all_dof = [i for i in range(1, 2*len(nodes)+1)]
-    #     member_dof = n1['dof'] + n2['dof']
-    #     other_dofs = [i for i in all_dof if i not in member_dof]
-    #     k_i = element_stiff_matrix(n1['coord'], n2['coord'], other_dofs=other_dofs)
+    for member in members:
+        n1, n2 = member
+        all_dof = [i for i in range(1, 2*len(nodes)+1)]
+        member_dof = n1['dof'] + n2['dof']
+        other_dofs = [i for i in all_dof if i not in member_dof]
+        k += element_stiff_matrix(
+            n1['coord'], n2['coord'], other_dofs=other_dofs)
 
-    #     k += k_i
+    return k
 
-    # return k
+def loads_vector(nodes):
+    Q = []
 
-    # for node in nodes:
-    #     print(node['force'])
+    for node in nodes:
+        Q += list(node['force'])
+
+    Q = np.reshape(np.array(Q), (len(Q),1)).astype(float)
+    return Q
+
+def displ_vector(nodes):
+    D = []
+
+    for node in nodes:
+        D += list(node['displ'])
+
+    D = np.reshape(np.array(D), (len(Q),1)).astype(float)
+
+    return D
+
+Q = loads_vector(nodes)
+
+print(Q)
