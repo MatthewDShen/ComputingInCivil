@@ -104,7 +104,7 @@ for member in members:
     other_dofs = [i for i in all_dof if i not in member_dof]
     k_i = element_stiff_matrix(n1['coord'], n2['coord'], other_dofs=other_dofs)
 
-    k += k_i
+    k = k_i + k
 
 print(k)
 
