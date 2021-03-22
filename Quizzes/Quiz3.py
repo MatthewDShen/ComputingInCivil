@@ -23,7 +23,7 @@ x_axis = np.arange(min(x), max(x) + 0.1, 0.1)
 fig, ax = plt.subplots()
 ax.scatter(x, y,)
 
-for degree in range(2):
+for degree in range(1,5):
 
     poly_coefficient, residual, _, _, _ = np.polyfit(x, y, degree, full=True)
 
