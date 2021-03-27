@@ -3,10 +3,14 @@
 # Imports
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy
+from scipy.interpolate import lagrange
+from scipy.optimize import fsolve
 import pint
 
-# Pint/Unit Setup
-units = pint.UnitRegistry()
+# Units
+u = pint.UnitRegistry()
+
 
 # Variables
 
@@ -25,8 +29,12 @@ def sigma(P):
     return sigma
 
 
-x_vals = np.linspace(0,1,sigma_max)
+x_vals = np.linspace(0 , sigma_max*1.25, 100)
 
-plt.plot(x_vals , sigma(x_vals))
-plt.plot(x_vals , [sigma_max] * len(x_vals))
-plt.show()
+# Generate polynomial for maxiumum function
+sigma_poly = lagrange(x_vals , sigma(x_vals)) - sigma_max
+
+# Determine intersection between polynomial and line
+P   = fsolve(sigma_poly,sigma_max)
+print(P)
+print (sigma(P))
