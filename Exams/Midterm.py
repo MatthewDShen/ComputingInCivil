@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.interpolate import lagrange
-from scipy.optimize import fsolve
+from scipy.optimize import ridder
 
 URL = "https://storage.googleapis.com/nm-static/deepex_fall2020/DeepEx_W3_20201217_slt_data.csv"
 
@@ -28,24 +28,40 @@ delta_max = 1/aeol * max_load*1.1 + 0.15 + diam/120
 fig, ax = plt.subplots()
 
 ax.plot(load, disp)
-criterion = ax.plot((0, max_load), (delta_0, delta_max))
-# ax.invert_yaxis()
+ax.plot((0, max_load), (delta_0, delta_max))
 
-poly_coeff = np.polyfit(load, disp, 11)
+# Determine poly of 
+poly_coeff = np.polyfit(load, disp, 10)
 f = np.poly1d(poly_coeff)
-
 plt.plot(load, f(load))
+line_coeff = np.polyfit((0, max_load), (delta_0, delta_max),1)
+line = np.poly1d(line_coeff)
+# print(load, line(load))
+plt.plot(load, line(load))
 # plt.xlim(0, 800)
 # plt.ylim(2, 0)
-line = lagrange([0 , delta_0],[max_load , delta_max])
-
-# criterion = int.lagrange([0,delta_0],[max_load,delta_max])
-
-
 # Solving for intersection
 
-# opt.fsolve(test_load_curve, 0)
+x = 0
+cap_x = -1
 
-# ax.scatter((747), (0.63), edgecolors='r', facecolors='w', lw=3)
+# print("f= ", f, "\n\n")
+# print("line= ", line, "\n\n")
+# print("f - line= ", f - line, "\n\n")
+
+# while cap_x < 0:
+#     cap_x = ridder(f - line, 0, max_load)
+#     x += 100
+#     print(cap_x)
+
+
+cap_x = ridder(f - line, 0, max_load)
+
+print(cap_x)
+# print(fsolve(f - line, 800))
+
+plt.plot(load, f(load)-line(load))
+
+# ax.scatter(cap_x, f(cap_x), edgecolors='r', facecolors='w', lw=3)
 
 plt.show()
