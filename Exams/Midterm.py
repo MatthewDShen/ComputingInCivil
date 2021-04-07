@@ -46,7 +46,7 @@ plt.plot(load, line(load))
 
 # plt.xlim(0, 800)
 # plt.ylim(2, 0)
-# Solving for intersection
+## Solving for intersection
 
 x = 0
 cap_x = -1
