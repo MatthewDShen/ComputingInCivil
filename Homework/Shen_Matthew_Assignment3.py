@@ -35,6 +35,6 @@ x_vals = np.linspace(0 , sigma_max*1.25, 100)
 sigma_poly = lagrange(x_vals , sigma(x_vals)) - sigma_max
 
 # Determine intersection between polynomial and line
-P   = fsolve(sigma_poly,sigma_max)
+P   = fsolve(sigma_poly,0)
 print(P)
 print (sigma(P))
