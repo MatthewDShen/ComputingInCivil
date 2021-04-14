@@ -1,4 +1,3 @@
-from re import I
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy.lib import load
@@ -47,6 +46,7 @@ def capacity_calc(df, id):
     poly_coeff = np.polyfit(load, disp, 11)
     f = np.poly1d(poly_coeff)
     plt.plot(load, f(load))
+
 
     ## Determine f of delta
     line_coeff = np.polyfit((0, max_load), (delta_0, delta_max),1)
