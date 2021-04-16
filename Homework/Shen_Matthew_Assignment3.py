@@ -2,34 +2,37 @@
 
 # Imports
 import numpy as np
+import math
 import matplotlib.pyplot as plt
-import scipy
 from scipy.interpolate import lagrange
 from scipy.optimize import fsolve
 import pint
 
 # Units
-u = pint.UnitRegistry()
+units = pint.UnitRegistry()
 
 
 # Variables
 
-A = 25800
-e = 85
-c = 170
-r = 142
-L = 7100
-E = 71*10**9
-sigma_max = 120 * 10 ** 6
+A = 25800 * units.mm**2
+e = 85 * units.mm
+c = 170 * units.mm
+r = 142 * units.mm
+L = 7100 * units.mm
+E = 71e9 * units.Pa
+sigma_max = 120e6 * units.Pa
 
 # Sigma_max function
-def sigma(P):
-    sigma_line = P/A
-    sigma = sigma_line * (1 +  (e*c/r**2) * 1/np.cos((L/2*r) * np.sqrt(sigma_line/E)))
-    return sigma
+def f(u):
+    return u * (1 + 0.7166 / math.cos(25 * math.sqrt(u))) - (sigma_max/E)
 
+P = -1
+i = 0
 
-x_vals = np.linspace(0 , sigma_max*1.25, 100)
+while P < 0:
+    u   = fsolve(f,i)
+    P =  (u * E * A).to('kN')
+    i = i + 1e-10
 
 # Generate polynomial for maxiumum function
 sigma_poly = lagrange(x_vals , sigma(x_vals)) - sigma_max
@@ -38,3 +41,4 @@ sigma_poly = lagrange(x_vals , sigma(x_vals)) - sigma_max
 P   = fsolve(sigma_poly,0)
 print(P)
 print (sigma(P))
+
