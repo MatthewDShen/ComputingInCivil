@@ -66,17 +66,18 @@ def capacity_calc(df, id):
     plt.ylabel('Displacement (in)')
 
     plt.savefig(str(id))
-    # plt.show()
+    plt.show()
     return cap_load, cap_disp
 
+capacity_calc(df,10)
 
 load_list = []
 disp_list = []
 
-for i in set(df['lt_id']):
-    cap_load, cap_disp = capacity_calc(df,i)
-    load_list.append(cap_load)
-    disp_list.append(cap_disp)
+# for i in set(df['lt_id']):
+#     cap_load, cap_disp = capacity_calc(df,i)
+#     load_list.append(cap_load)
+#     disp_list.append(cap_disp)
 
 
     # test_range = []
