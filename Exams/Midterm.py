@@ -12,7 +12,7 @@ URL = "https://storage.googleapis.com/nm-static/deepex_fall2020/DeepEx_W3_202012
 df = pd.read_csv(URL)
 
 ## Pull data from 10th id set
-test = df.loc[df['lt_id'] == 45]
+test = df.loc[df['lt_id'] == 10]
 
 ## save relevant data into variables
 load = np.array(test['load'])
@@ -72,6 +72,7 @@ plt.plot(load,f(load))
 # print(brentq(f - line, 0, max_load))
 cap_x = fsolve(f - line, max_load)
 
+print(cap_x)
 ax.scatter(cap_x, line(cap_x), edgecolors='r', facecolors='w', lw=3)
 
 ax.invert_yaxis()
