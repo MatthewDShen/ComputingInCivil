@@ -34,4 +34,11 @@ while P < 0:
     P =  (u * E * A).to('kN')
     i = i + 1e-10
 
+# Generate polynomial for maxiumum function
+sigma_poly = lagrange(x_vals , sigma(x_vals)) - sigma_max
+
+# Determine intersection between polynomial and line
+P   = fsolve(sigma_poly,0)
 print(P)
+print (sigma(P))
+
